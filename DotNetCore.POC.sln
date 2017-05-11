@@ -1,0 +1,29 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.API", "DotNetCore.API\DotNetCore.API.csproj", "{F1409244-E7EF-45E1-ACF8-B078FD70A6A8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.Settings", "DotNetCore.Settings\DotNetCore.Settings.csproj", "{9411376C-7362-48CB-B403-6B5B27F53690}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.Data", "DotNetCore.Data\DotNetCore.Data.csproj", "{DCD7F372-A5F7-43A8-99F3-E424DD30F3E1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F1409244-E7EF-45E1-ACF8-B078FD70A6A8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F1409244-E7EF-45E1-ACF8-B078FD70A6A8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F1409244-E7EF-45E1-ACF8-B078FD70A6A8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F1409244-E7EF-45E1-ACF8-B078FD70A6A8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9411376C-7362-48CB-B403-6B5B27F53690}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9411376C-7362-48CB-B403-6B5B27F53690}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9411376C-7362-48CB-B403-6B5B27F53690}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9411376C-7362-48CB-B403-6B5B27F53690}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD7F372-A5F7-43A8-99F3-E424DD30F3E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD7F372-A5F7-43A8-99F3-E424DD30F3E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD7F372-A5F7-43A8-99F3-E424DD30F3E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD7F372-A5F7-43A8-99F3-E424DD30F3E1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
