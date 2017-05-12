@@ -2,18 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using DotNetCore.Data;
+using DotNetCore.Data.Models;
+using DotNetCore.Settings;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetCore.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api")]
     public class ValuesController : Controller
     {
+
+        //BloggingContext _context;
+        //ISettings _settings;
+        //TestService testService;
+        RepoManager repo;
+
+        public ValuesController(RepoManager repo)
+        {
+            //this._context = blogContext;
+            //this._settings = settings;
+            //this.testService = new TestService(_settings);
+            this.repo = repo;
+        }
         // GET api/values
-        [HttpGet]
+        [HttpGet("test")]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return new string[] { "value1", repo.GetBlogCount().ToString() };
+            //return new string[] { "value1", "value2" };
+        }
+
+        [HttpGet("getthekey")]
+        public IActionResult GetTheKey()
+        {
+            return Ok(repo.GetTheKey());
         }
 
         // GET api/values/5

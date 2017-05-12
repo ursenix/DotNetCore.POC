@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using DotNetCore.Data.Models;
+using DotNetCore.Data;
 using DotNetCore.Settings;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Microsoft.EntityFrameworkCore;
 
 namespace DotNetCore.API
 {
@@ -30,7 +31,6 @@ namespace DotNetCore.API
         public void ConfigureServices(IServiceCollection services)
         {
 			var documentDBSettings = Configuration.GetSection("DocumentDBSettings");
-			//services.Configure<DocumentDBSetting>(Configuration);
 			services.Configure<DocumentDBSetting>(documentDBSettings);
 
 			services.AddOptions();
@@ -38,8 +38,14 @@ namespace DotNetCore.API
 			// Add framework services.
 			services.AddMvc();
 
-			var connectionString = Configuration.GetSection("OfficeManagerConnectionString");
-			services.AddDbContext<BloggingContext>();
+
+            var connectionString = Configuration.GetConnectionString("DefaultConnection");
+            services.AddDbContext<BloggingContext>(opt => opt.UseSqlServer(connectionString));
+
+            //var settingsManager = new SettingsManager(connectionString.Value, Configuration.GetValue<DocumentDBSetting>("DocumentDBSettings"));
+
+            services.AddTransient<ISettings, SettingsManager>();
+            services.AddTransient<RepoManager>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,7 +54,10 @@ namespace DotNetCore.API
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
 
+			app.UseDefaultFiles();
+			app.UseStaticFiles();
             app.UseMvc();
+            //app.UseDeveloperExceptionPage();
         }
     }
 }

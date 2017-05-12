@@ -9,4 +9,7 @@
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="1.1.2" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DotNetCore.Settings\DotNetCore.Settings.csproj" />
+  </ItemGroup>
 </Project>
