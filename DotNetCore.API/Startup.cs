@@ -10,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace DotNetCore.API
 {
@@ -53,6 +54,34 @@ namespace DotNetCore.API
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
+
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler(subApp => {
+                    subApp.Run(async context => {
+                        await context.Response.WriteAsync("<b>Error happened</b>");
+                        await context.Response.WriteAsync(new string(' ', 512)); // Padding for IE
+                    });
+                });
+            }
+
+            app.UseStatusCodePages(subApp => {
+                subApp.Run(async context => {
+                    await context.Response.WriteAsync("<b>Page not found!</b>");
+                    await context.Response.WriteAsync(new string(' ', 512)); // Padding for IE
+                });
+            });
+
+            app.Run(context => 
+            {
+                //throw new Exception("Test error");
+                context.Response.StatusCode = 404;
+                return Task.FromResult(0);
+            });
 
 			app.UseDefaultFiles();
 			app.UseStaticFiles();
