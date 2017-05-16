@@ -8,9 +8,10 @@ using DotNetCore.Data;
 namespace DotNetCore.Data.Migrations
 {
     [DbContext(typeof(BloggingContext))]
-    partial class BloggingContextModelSnapshot : ModelSnapshot
+    [Migration("20170516124540_NewColumnAddedInTest")]
+    partial class NewColumnAddedInTest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.2")
@@ -44,6 +45,22 @@ namespace DotNetCore.Data.Migrations
                     b.HasIndex("BlogId");
 
                     b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("DotNetCore.Data.Models.Test", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Dummy");
+
+                    b.Property<string>("Dummy2");
+
+                    b.Property<string>("Dummy3");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Tests");
                 });
 
             modelBuilder.Entity("DotNetCore.Data.Models.Post", b =>
