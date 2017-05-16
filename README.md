@@ -29,9 +29,9 @@ dotnet ef --startup-project "../DotNetCore.API" migrations remove -v
 ```
 
 ### Following are the migration scripts:
-#### 20170511175515_InitialCreate
-#### 20170516121508_TestTableAdded
-#### 20170516124540_NewColumnAddedInTest
+* 20170511175515_InitialCreate
+* 20170516121508_TestTableAdded
+* 20170516124540_NewColumnAddedInTest
 
 ### Using the following command, the Database will be updated from InitialCreate to TestTableAdded
 ```
@@ -53,10 +53,10 @@ dotnet ef --startup-project "../DotNetCore.API" migrations add TestTableRemoved
 ```
 
 ### Following are the migration scripts (updated):
-#### 20170511175515_InitialCreate
-#### 20170516121508_TestTableAdded
-#### 20170516124540_NewColumnAddedInTest
-#### 20170516132248_TestTableRemoved
+* 20170511175515_InitialCreate
+* 20170516121508_TestTableAdded
+* 20170516124540_NewColumnAddedInTest
+* 20170516132248_TestTableRemoved
 
 ### Generate SQL Script for table deletion alone
 ```
