@@ -76,12 +76,14 @@ namespace DotNetCore.API
                 });
             });
 
+            /*
             app.Run(context => 
             {
-                //throw new Exception("Test error");
-                context.Response.StatusCode = 404;
-                return Task.FromResult(0);
+                throw new Exception("Test error");
+                //context.Response.StatusCode = 404;
+                //return Task.FromResult(0);
             });
+            */
 
 			app.UseDefaultFiles();
 			app.UseStaticFiles();
