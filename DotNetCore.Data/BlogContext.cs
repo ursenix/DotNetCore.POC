@@ -13,16 +13,6 @@ namespace DotNetCore.Data
             
         }
 
-
-
-        //readonly ISettings _settings;
-
-        //public BloggingContext(ISettings settings)
-        //{
-        //    this._settings = settings;
-        //}
-
-
         //protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         //{
         //    // Has to get it from appSettings
@@ -30,9 +20,7 @@ namespace DotNetCore.Data
         //    optionsBuilder.UseSqlServer(_settings.OfficeManagerConnectionString);
         //}
 
-
 		public DbSet<Blog> Blogs { get; set; }
 		public DbSet<Post> Posts { get; set; }
-        
-    }
+	}
 }

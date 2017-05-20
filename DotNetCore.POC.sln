@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.Settings", "DotN
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.Data", "DotNetCore.Data\DotNetCore.Data.csproj", "{DCD7F372-A5F7-43A8-99F3-E424DD30F3E1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DotNetCore.Service", "DotNetCore.Service\DotNetCore.Service.csproj", "{E6400600-A654-4321-BB3E-5D69F797D73A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -25,5 +27,9 @@ Global
 		{DCD7F372-A5F7-43A8-99F3-E424DD30F3E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DCD7F372-A5F7-43A8-99F3-E424DD30F3E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DCD7F372-A5F7-43A8-99F3-E424DD30F3E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E6400600-A654-4321-BB3E-5D69F797D73A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E6400600-A654-4321-BB3E-5D69F797D73A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E6400600-A654-4321-BB3E-5D69F797D73A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E6400600-A654-4321-BB3E-5D69F797D73A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

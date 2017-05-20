@@ -11,6 +11,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
+using DotNetCore.Service.Contracts;
+using DotNetCore.Service;
 
 namespace DotNetCore.API
 {
@@ -43,10 +45,11 @@ namespace DotNetCore.API
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<BloggingContext>(opt => opt.UseSqlServer(connectionString));
 
-            //var settingsManager = new SettingsManager(connectionString.Value, Configuration.GetValue<DocumentDBSetting>("DocumentDBSettings"));
-
             services.AddTransient<ISettings, SettingsManager>();
-            services.AddTransient<RepoManager>();
+
+            services.AddTransient<BlogContextUnitOfWork>();
+
+            services.AddTransient<IBlogService, BlogService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

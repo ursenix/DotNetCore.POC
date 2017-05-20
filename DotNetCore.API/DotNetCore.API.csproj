@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DotNetCore.Settings\DotNetCore.Settings.csproj" />
+    <ProjectReference Include="..\DotNetCore.Service\DotNetCore.Service.csproj" />
     <ProjectReference Include="..\DotNetCore.Data\DotNetCore.Data.csproj" />
   </ItemGroup>
   <ItemGroup>

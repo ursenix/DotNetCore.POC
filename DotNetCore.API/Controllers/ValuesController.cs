@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using DotNetCore.Data;
 using DotNetCore.Data.Models;
+using DotNetCore.Service.Contracts;
 using DotNetCore.Settings;
 using Microsoft.AspNetCore.Mvc;
 
@@ -16,27 +17,27 @@ namespace DotNetCore.API.Controllers
         //BloggingContext _context;
         //ISettings _settings;
         //TestService testService;
-        RepoManager repo;
+        IBlogService blogService;
 
-        public ValuesController(RepoManager repo)
+        public ValuesController(IBlogService blogService)
         {
             //this._context = blogContext;
             //this._settings = settings;
             //this.testService = new TestService(_settings);
-            this.repo = repo;
+            this.blogService = blogService;
         }
         // GET api/values
         [HttpGet("test")]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", repo.GetBlogCount().ToString() };
+            return new string[] { "value1", blogService.GetBlogCount().ToString() };
             //return new string[] { "value1", "value2" };
         }
 
         [HttpGet("getthekey")]
         public IActionResult GetTheKey()
         {
-            return Ok(repo.GetTheKey());
+            return Ok(blogService.GetTheKey());
         }
 
         // GET api/values/5
