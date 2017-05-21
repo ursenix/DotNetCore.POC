@@ -5,5 +5,6 @@ namespace DotNetCore.Data
     {
 		T DBContext();
 		IRepository<TEntity> GetRepository<TEntity>() where TEntity : class;
+        void SaveChanges();
     }
 }

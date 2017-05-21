@@ -20,6 +20,5 @@ namespace DotNetCore.Data
 		IQueryable<TEntity> GetByRawSqlQuery(string query, params object[] parameters);
 		TEntity Insert(TEntity entity);
 		void Update(TEntity entityToUpdate);
-		
     }
 }

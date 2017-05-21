@@ -34,6 +34,11 @@ namespace DotNetCore.Data
             return repo;
         }
 
+        public void SaveChanges()
+        {
+            this.context.SaveChanges();
+        }
+
 		protected virtual void Dispose(bool disposing)
 		{
 			if (!this.disposed)

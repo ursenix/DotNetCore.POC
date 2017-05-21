@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Http;
 using DotNetCore.Service.Contracts;
 using DotNetCore.Service;
+using AutoMapper;
 
 namespace DotNetCore.API
 {
@@ -41,6 +42,16 @@ namespace DotNetCore.API
 			// Add framework services.
 			services.AddMvc();
 
+            services.AddAutoMapper();
+
+			var autoMapperConfig = new AutoMapper.MapperConfiguration(cfg =>
+			{
+				cfg.AddProfile(new AutoMapperProfileConfiguration());
+			});
+
+            var autoMapper = autoMapperConfig.CreateMapper();
+
+            services.AddSingleton(autoMapper);
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddDbContext<BloggingContext>(opt => opt.UseSqlServer(connectionString));
@@ -90,8 +101,12 @@ namespace DotNetCore.API
 
 			app.UseDefaultFiles();
 			app.UseStaticFiles();
-            app.UseMvc();
+            //app.UseMvc();
+            app.UseMvcWithDefaultRoute();
+
             //app.UseDeveloperExceptionPage();
         }
+
+
     }
 }

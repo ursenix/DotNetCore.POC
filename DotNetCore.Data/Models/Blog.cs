@@ -4,12 +4,19 @@ using System.Collections.Generic;
 namespace DotNetCore.Data.Models
 {
     
-		public class Blog
-		{
-			public int BlogId { get; set; }
-			public string Url { get; set; }
+	public class Blog
+	{
 
-			public List<Post> Posts { get; set; }
-		}
+        public Blog()
+        {
+            this.Posts = new List<Post>();
+        }
+
+        public int BlogId { get; set; }
+		public string Url { get; set; }
+
+		public ICollection<Post> Posts { get; set; }
+		
+    }
 
 }
