@@ -36,10 +36,17 @@ namespace DotNetCore.API.Controllers
 
         // POST api/blogs
         [HttpPost("blogs")]
-        public IActionResult Post([FromBody]_Blog blog)
+        public async Task<IActionResult> Post([FromBody]_Blog blog)
         {
-            var newBlog = blogService.AddBlog(blog);
-            return Created($"/api/blogs/{newBlog.BlogId}", newBlog);
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var result = await blogService.AddBlogAsync(blog);
+
+            if (!result.IsExecutionSucceed)
+                return StatusCode((int)result.StatusCode.Value, result.Message);
+
+            return Created($"/api/blogs/{result.Entity.BlogId}", result.Entity);
         }
 
         // PUT api/blogs/5
@@ -61,6 +68,7 @@ namespace DotNetCore.API.Controllers
         public IActionResult AddPost(int blogId, [FromBody]Post post)
         {
             var newPost = blogService.AddPost(blogId, post);
+
             return Created($"/api/blogs/{blogId}/posts/{newPost.PostId}", newPost);
         }
 

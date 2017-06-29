@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using DotNetCore.Data.Models;
 using DotNetCore.Service.ViewModels;
 
@@ -7,7 +8,7 @@ namespace DotNetCore.Service.Contracts
 {
     public interface IBlogService
     {
-        _Blog AddBlog(_Blog blog);
+        Task<Result<_Blog>> AddBlogAsync(_Blog blog);
         void UpdateBlog(int blogId, Blog blog);
         IEnumerable<Blog> GetAllBlogs();
         Blog GetBlogById(int id);

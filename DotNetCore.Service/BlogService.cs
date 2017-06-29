@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Threading.Tasks;
 using AutoMapper;
 using DotNetCore.Data;
 using DotNetCore.Data.Models;
@@ -36,11 +37,30 @@ namespace DotNetCore.Service
             this.postRepo = unitOfWork.GetRepository<Post>();
         }
 
-        public _Blog AddBlog(_Blog blog)
+        public async Task<Result<_Blog>> AddBlogAsync(_Blog blog)
         {
-            var newBlog = autoMapper.Map<Blog>(blog);
-            blogRepo.Insert(newBlog);
-            return autoMapper.Map<_Blog>(newBlog);
+            var result = new Result<_Blog>();
+
+            try
+            {
+				var newBlog = autoMapper.Map<Blog>(blog);
+				blogRepo.Insert(newBlog);
+
+				blog = autoMapper.Map<_Blog>(newBlog);
+
+				result.IsExecutionSucceed = true;
+				result.Entity = blog;
+				result.StatusCode = System.Net.HttpStatusCode.Created;
+			}
+            catch (Exception ex)
+            {
+                result.IsExecutionSucceed = false;
+                result.Expection = ex;
+                result.StatusCode = System.Net.HttpStatusCode.InternalServerError;
+                result.Message = "There is an error while adding new blog, please try again later.";
+            }
+
+            return await Task.FromResult<Result<_Blog>>(result);
         }
 
         public void UpdateBlog(int blogId, Blog blog)
