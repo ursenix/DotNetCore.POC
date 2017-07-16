@@ -34,8 +34,10 @@ namespace DotNetCore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-			var documentDBSettings = Configuration.GetSection("DocumentDBSettings");
-			services.Configure<DocumentDBSetting>(documentDBSettings);
+			//var documentDBSettings = Configuration.GetSection("DocumentDBSettings");
+			//services.Configure<DocumentDBSetting>(documentDBSettings);
+
+            services.AddSingleton<IConfiguration>(Configuration);
 
 			services.AddOptions();
 
@@ -58,9 +60,16 @@ namespace DotNetCore.API
 
             services.AddTransient<ISettings, SettingsManager>();
 
+            services.AddTransient<DocumentDBSettings>();
+            services.AddSingleton<DocumentDBProvider>();
+
+
+
             services.AddTransient<BlogContextUnitOfWork>();
 
             services.AddTransient<IBlogService, BlogService>();
+
+            services.AddTransient<IDocumentDBService, DocumentDBService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

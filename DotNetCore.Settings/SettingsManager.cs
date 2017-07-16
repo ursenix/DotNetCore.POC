@@ -1,21 +1,21 @@
 ﻿using System;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Configuration;
+//using Microsoft.Extensions.Options;
 namespace DotNetCore.Settings
 {
     public class SettingsManager : ISettings
     {
-        readonly DocumentDBSetting _documentDBSettings;
 
-        public SettingsManager(IOptions<DocumentDBSetting> documentDBSettings)
+        //public SettingsManager(IOptions<DocumentDBSetting> documentDBSettings)
+        public SettingsManager(IConfiguration configuration, DocumentDBSettings documentDBSettings)
         {
-            this._documentDBSettings = documentDBSettings.Value;
+            TestSetting = configuration.GetSection("TestSetting").Value;
+            DocumentDBSettings = documentDBSettings;
         }
 
+        public DocumentDBSettings DocumentDBSettings { get; private set; }
 
-        public DocumentDBSetting DocumentDBSetting 
-        {
-            get => this._documentDBSettings;
-        }
+        public string TestSetting { get; private set; }
 
 
     }

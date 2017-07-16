@@ -3,10 +3,14 @@ namespace DotNetCore.Settings
 {
     public interface ISettings
     {
-        DocumentDBSetting DocumentDBSetting
+        string TestSetting
         {
             get;
+        }
 
+        DocumentDBSettings DocumentDBSettings
+        {
+            get;
         }
 
 
