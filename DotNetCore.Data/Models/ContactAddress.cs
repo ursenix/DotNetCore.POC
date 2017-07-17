@@ -5,7 +5,7 @@ namespace DotNetCore.Data.Models
 {
 	public class ContactAddress : Entity
 	{
-		public ContactAddress() : base("address")
+		public ContactAddress() : base(EntityTypes.Address) //("address")
 		{
 			Primary = false;
 		}

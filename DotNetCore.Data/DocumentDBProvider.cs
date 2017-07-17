@@ -5,6 +5,7 @@ using DotNetCore.Settings;
 using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 
+
 namespace DotNetCore.Data
 {
     public class DocumentDBProvider
@@ -18,8 +19,9 @@ namespace DotNetCore.Data
 			this.client = new DocumentClient(settings.DocumentDBSettings.DatabaseUri, settings.DocumentDBSettings.DatabaseKey, new ConnectionPolicy()
 			{
 				MaxConnectionLimit = 100,
-				//ConnectionMode = ConnectionMode.Direct,
-				//ConnectionProtocol = Protocol.Tcp
+                //ConnectionMode = ConnectionMode.Gateway,
+				ConnectionMode = ConnectionMode.Direct,
+				ConnectionProtocol = Protocol.Tcp
 				// https://github.com/Azure/azure-documentdb-dotnet/issues/194
 			});
 
@@ -28,15 +30,29 @@ namespace DotNetCore.Data
 			this.databaseName = settings.DocumentDBSettings.DatabaseName;
 			this.collectionName = settings.DocumentDBSettings.CollectionName;
 
-			this.CreateDatabaseIfNotExistsAsync().Wait();
-			this.CreateCollectionIfNotExistsAsync().Wait();
+            client.CreateDatabaseIfNotExistsAsync(new Database { Id = databaseName }).Wait();
+
+            DocumentCollection myCollection = new DocumentCollection();
+            myCollection.Id = collectionName;
+            myCollection.PartitionKey.Paths.Add("/type");
+
+            client.CreateDocumentCollectionIfNotExistsAsync(UriFactory.CreateDatabaseUri(databaseName),
+                                                            myCollection,
+                                                            new RequestOptions
+                                                            {
+                                                                OfferThroughput = 400,
+                                                            }).Wait();
+
+            //this.CreateDatabaseIfNotExistsAsync().Wait();
+			//this.CreateCollectionIfNotExistsAsync().Wait();
 
             this.collectionUri = GetCollectionLink();
 		}
 
 		public readonly DocumentClient client;
 
-		public async Task CreateDatabaseIfNotExistsAsync()
+        #region legacyCode
+        public async Task CreateDatabaseIfNotExistsAsync()
 		{
 			try
 			{
@@ -77,8 +93,10 @@ namespace DotNetCore.Data
 				}
 			}
 		}
+        #endregion #region legacyCode
 
-		private Uri GetCollectionLink()
+        #region Helper Methods
+        private Uri GetCollectionLink()
 		{
 			return UriFactory.CreateDocumentCollectionUri(databaseName, collectionName);
 		}
@@ -87,8 +105,9 @@ namespace DotNetCore.Data
 		{
 			return UriFactory.CreateDocumentUri(databaseName, collectionName, id);
 		}
+        #endregion Helper Methods
 
-		public async Task<string> AddItem<T>(T document)
+        public async Task<string> AddItem<T>(T document)
 		{
             var result = await client.CreateDocumentAsync(collectionUri, document);
 			return result.Resource.Id;
@@ -107,6 +126,7 @@ namespace DotNetCore.Data
 
 		public IQueryable<T> CreateQuery<T>(FeedOptions feedOptions)
 		{
+            feedOptions.EnableCrossPartitionQuery = true;
             return client.CreateDocumentQuery<T>(collectionUri, feedOptions);
 		}
 

@@ -9,9 +9,10 @@ namespace DotNetCore.Data.Models
 	/// </summary>
 	public abstract class Entity
 	{
-		public Entity(string type)
-		{
-			this.Type = type;
+		//public Entity(string type)
+        public Entity(EntityTypes type)
+        {
+            this.Type = type.ToString();
 		}
 		/// <summary>
 		/// Object unique identifier
@@ -19,9 +20,11 @@ namespace DotNetCore.Data.Models
 		[Key]
 		[JsonProperty("id")]
 		public string Id { get; set; }
-		/// <summary>
-		/// Object type
-		/// </summary>
-		public string Type { get; private set; }
-	}
+        /// <summary>
+        /// Object type
+        /// </summary>
+        [JsonProperty("type")]
+        public string Type { get; private set; }
+        
+    }
 }

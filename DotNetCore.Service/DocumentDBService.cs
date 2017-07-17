@@ -36,8 +36,8 @@ namespace DotNetCore.Service
 			{
 				feedOptions.RequestContinuation = continuationToken;
 			}
-            return await provider.CreateQuery<ContactAddress>(feedOptions).Where(x => x.Type == "address").ToPagedResults();
-		}
+            return await provider.CreateQuery<ContactAddress>(feedOptions).Where(x => x.Type == EntityTypes.Address.ToString()).ToPagedResults();
+        }
 
 		public async Task<string> AddContactAddress(ContactAddress address)
 		{
